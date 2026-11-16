@@ -1,0 +1,3 @@
+include(clang-cl-20)
+include(clang-cl-x86)
+include(cppstd-17)
