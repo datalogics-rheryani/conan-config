@@ -1,0 +1,8 @@
+include(msvc-x86)
+[conf]
+# The clang-cl that clang-cl-common puts on PATH is the 64-bit hosted one,
+# which targets x86_64 by default, and Conan adds no architecture flag for
+# clang-cl. Select the 32-bit target explicitly rather than switching to the
+# 32-bit hosted clang-cl, which runs out of address space on large sources.
+tools.build:cflags=["-m32"]
+tools.build:cxxflags=["-m32"]
