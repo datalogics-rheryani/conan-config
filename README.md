@@ -13,6 +13,15 @@ This configuration can be installed with `conan config install`.
 
 See [AGENTS.md](AGENTS.md) for contributor guidelines covering profile layout, validation commands, and PR expectations. Share the verification checklist with your team so everyone runs the required `conan install`/`conan profile show` smoke tests before opening changes.
 
+Enable the pre-commit checks once per clone:
+
+```bash
+$ pip install pre-commit
+$ pre-commit install
+```
+
+They check staged files for valid UTF-8, trailing newlines, tabs, profile naming and structure, duplicate keys, and the shape of `remotes.json` and `settings.yml`. Run `pre-commit run --all-files` to check every tracked file. A deliberate change to remote order needs `ALLOW_REMOTE_REORDER=1 git commit`.
+
 ## Using
 
 ```bash

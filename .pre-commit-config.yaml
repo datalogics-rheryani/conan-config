@@ -1,0 +1,15 @@
+repos:
+  - repo: git@github.com:datalogics/dl-pre-commit-hooks.git
+    rev: 1.2.0
+    hooks:
+      - id: check-utf8
+  - repo: local
+    hooks:
+      - id: conan-config-lint
+        name: conan-config-lint
+        description: 'Lint profiles, remotes.json and settings.yml'
+        entry: python tools/lint.py
+        language: python
+        additional_dependencies: [pyyaml]
+        always_run: true
+        require_serial: true
