@@ -1,0 +1,7 @@
+.claude/*
+.gitignore
+.pre-commit-config.yaml
+AGENTS.md
+CLAUDE.md
+README.md
+tools/*
