@@ -1,7 +1,16 @@
+.cache/*
 .claude/*
 .gitignore
+.mkenv/*
+.pr-classify.yaml
 .pre-commit-config.yaml
 AGENTS.md
 CLAUDE.md
+Jenkinsfile
 README.md
+mkenv.py
+python-env-*
+requirements.in
+requirements.txt
+tasks.py
 tools/*

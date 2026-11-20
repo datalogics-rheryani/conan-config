@@ -7,7 +7,7 @@ Contains a standard Conan 2 configuration for Datalogics, including:
 - remote repositories
 - config variable overrides
 
-This configuration can be installed with `conan config install`. 
+This configuration can be installed with `conan config install`.
 
 ## Contributing
 
@@ -16,7 +16,8 @@ See [AGENTS.md](AGENTS.md) for contributor guidelines covering profile layout, v
 Enable the pre-commit checks once per clone:
 
 ```bash
-$ pip install pre-commit
+$ python3 mkenv.py
+$ . ./python-env-$(hostname -s | tr '[:upper:]' '[:lower:]')/bin/activate
 $ pre-commit install
 ```
 
