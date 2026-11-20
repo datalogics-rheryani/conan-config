@@ -16,6 +16,9 @@ import sys
 KEYED_SECTIONS = {"settings", "options", "conf", "buildenv", "runenv"}
 # Mixed-case or underscored tokens that Conan settings force into profile names.
 NAME_TOKENS = re.compile(r"iOSSim|iOS|x86_64")
+# Set by `pre-commit run --from-ref/--to-ref`; the change is then that range, not the index.
+BASE_REF = os.environ.get("PRE_COMMIT_FROM_REF")
+TO_REF = os.environ.get("PRE_COMMIT_TO_REF", "HEAD")
 
 errors = []
 
@@ -116,7 +119,7 @@ def check_remotes(path, text):
     if os.environ.get("ALLOW_REMOTE_REORDER") == "1":
         return
     head = subprocess.run(
-        ("git", "cat-file", "blob", "HEAD:" + path),
+        ("git", "cat-file", "blob", "%s:%s" % (BASE_REF or "HEAD", path)),
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
     )
@@ -139,20 +142,14 @@ def check_settings_yml(path, text):
         # Wrapped flow sequences align to their opening bracket; only keys are checked.
         if indent % 2 and re.match(r'["\w.-]+:(\s|$)', line.lstrip(" ")):
             error("%s:%d: indentation is not a multiple of two spaces" % (path, number))
-    try:
-        import yaml
-    except ImportError:
-        print("lint: PyYAML not available; skipping %s parse" % path, file=sys.stderr)
-        return
-    try:
-        yaml.safe_load(text)
-    except yaml.YAMLError as exc:
-        error("%s: invalid YAML: %s" % (path, " ".join(str(exc).split())))
 
 
 def main():
     named = [arg for arg in sys.argv[1:] if not arg.startswith("--")]
-    added = paths("diff", "--cached", "--name-only", "--diff-filter=AR", "-z")
+    if BASE_REF:
+        added = paths("diff", "--name-only", "--diff-filter=AR", "-z", "%s...%s" % (BASE_REF, TO_REF))
+    else:
+        added = paths("diff", "--cached", "--name-only", "--diff-filter=AR", "-z")
     if "--all" in sys.argv[1:]:
         changed = added = paths("ls-files", "-z")
     elif named:

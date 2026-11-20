@@ -1,4 +1,10 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: trailing-whitespace
   - repo: git@github.com:datalogics/dl-pre-commit-hooks.git
     rev: 1.2.0
     hooks:
@@ -10,6 +16,5 @@ repos:
         description: 'Lint profiles, remotes.json and settings.yml'
         entry: python tools/lint.py
         language: python
-        additional_dependencies: [pyyaml]
         always_run: true
         require_serial: true
