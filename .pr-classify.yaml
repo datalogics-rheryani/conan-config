@@ -1,0 +1,27 @@
+# Settings are read from the PR target branch by dl-pr-classify.
+# Require passing Jenkins CI, low-risk classification, and an approving agent review.
+cutoff: 0.5
+
+# Leave off until develop requires an approving review and dismisses stale approvals.
+automerge: false
+
+# Files that need human review, beyond the gatekeeper built-ins (Jenkinsfile, this policy,
+# .pre-commit-config.yaml). These change what every consumer resolves or installs.
+protected_paths:
+  - remotes.json
+  - .conanignore
+  - "tools/*"
+
+# This repository is Conan configuration that every product build installs from the tip of develop.
+question:
+  instructions: Is this pull request low-risk enough to merge without human review?
+  criteria:
+    true: >-
+      A change that cannot alter existing builds, or whose effect is confined and evident from the diff:
+      adding new profiles, adding a conf or option to a single leaf profile for one platform,
+      or documentation and comment edits.
+    false: >-
+      A change that could alter many existing builds or their package IDs, or whose effect is hard to
+      verify from the diff: editing a profile that other profiles include, changing settings, compiler
+      versions or flags in existing profiles, removing or renaming profiles, or touching remotes,
+      settings.yml, or CI and tooling files.
