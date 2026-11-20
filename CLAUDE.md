@@ -7,6 +7,9 @@ Configurations live in `profiles/` (per-platform Conan profiles), `settings.yml`
 - `conan config install .` installs the checked-out config into the active Conan client.
 - `conan config install . --verify` ensures no local overrides conflict with the repo state; run before opening a PR.
 - `conan profile list | grep <profile>` confirms that newly added profiles register correctly.
+- `python3 mkenv.py` builds the `python-env-<host>` virtual environment used by CI and the pre-commit hooks.
+
+Python packages go in `requirements.in`. `mkenv.py` generates `requirements.txt` from it; never edit `requirements.txt` by hand, commit it, or install packages inline in the `Jenkinsfile`.
 
 ## Coding Style & Naming Conventions
 Keep profiles in plain text with key/value pairs aligned via single spaces and no tabs. Group related options (e.g., `[settings]`, `[env]`, `[tool_requires]`) and add concise inline comments only where behavior might surprise consumers. YAML files (`settings.yml`, overrides) follow two-space indentation and lowercase keys unless Conan requires specific casing. File names use lowercase with dashes; avoid spaces.  All text files should end in a newline to prevent them from being added by certain editors that do so, and to prevent cat/type commands from messing up the terminal.

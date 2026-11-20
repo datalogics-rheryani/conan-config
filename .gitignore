@@ -161,3 +161,8 @@ cython_debug/
 
 # macOS Finder
 .DS_Store
+
+# mkenv.py output
+/.mkenv
+python-env-*
+requirements.txt

@@ -7,11 +7,21 @@ Contains a standard Conan 2 configuration for Datalogics, including:
 - remote repositories
 - config variable overrides
 
-This configuration can be installed with `conan config install`. 
+This configuration can be installed with `conan config install`.
 
 ## Contributing
 
 See [AGENTS.md](AGENTS.md) for contributor guidelines covering profile layout, validation commands, and PR expectations. Share the verification checklist with your team so everyone runs the required `conan install`/`conan profile show` smoke tests before opening changes.
+
+Enable the pre-commit checks once per clone:
+
+```bash
+$ python3 mkenv.py
+$ . ./python-env-$(hostname -s | tr '[:upper:]' '[:lower:]')/bin/activate
+$ pre-commit install
+```
+
+They check staged files for valid UTF-8, trailing newlines, tabs, profile naming and structure, duplicate keys, and the shape of `remotes.json` and `settings.yml`. Run `pre-commit run --all-files` to check every tracked file. A deliberate change to remote order needs `ALLOW_REMOTE_REORDER=1 git commit`.
 
 ## Using
 

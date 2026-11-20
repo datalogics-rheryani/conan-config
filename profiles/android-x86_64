@@ -8,3 +8,6 @@ compiler=clang
 compiler.version="19"
 compiler.libcxx=c++_shared
 build_type=Release
+[conf]
+# The openssl 4.x recipe maps only some os/arch pairs to a Configure target
+openssl/*:user.openssl:target=android-x86_64

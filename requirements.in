@@ -1,0 +1,4 @@
+conan>=2,<3
+dl-pre-commit-hooks
+invoke
+pre-commit
